@@ -63,6 +63,7 @@
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
+  nav.is-scrolled { padding: 1rem 4rem; }
   .logo {
     font-family: 'Syne', sans-serif;
     font-weight: 800; font-size: 1.35rem;
@@ -77,6 +78,7 @@
     transition: color .25s;
   }
   .nav-links a:hover { color: var(--white); }
+  .nav-actions { display: flex; align-items: center; gap: .85rem; }
   .nav-cta {
     background: transparent;
     border: 1px solid var(--accent);
@@ -88,6 +90,32 @@
     text-decoration: none;
   }
   .nav-cta:hover { background: var(--accent); color: var(--white); }
+  .language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: .1rem;
+    padding: .15rem;
+    border: 1px solid var(--border);
+    background: rgba(13,21,48,0.7);
+  }
+  .lang-btn {
+    min-width: 2.2rem;
+    border: 0;
+    background: transparent;
+    color: var(--grey);
+    padding: .38rem .45rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .lang-btn:hover,
+  .lang-btn.is-active {
+    background: var(--accent);
+    color: var(--white);
+  }
 
   /* ── HERO ── */
   .hero {
@@ -374,7 +402,11 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
+    nav.is-scrolled { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
+    .nav-actions { gap: .5rem; }
+    .nav-cta { padding: .45rem .8rem; font-size: .68rem; }
+    .lang-btn { min-width: 1.9rem; padding: .35rem .35rem; font-size: .68rem; }
     .section, .about-wrap, .contact-wrap { padding: 4rem 1.5rem; }
     .services-grid { grid-template-columns: 1fr; }
     .stats { grid-template-columns: repeat(2,1fr); }
@@ -398,30 +430,37 @@
 <nav>
   <div class="logo">Alb<span>Jon</span> Tech</div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#services" data-i18n="navServices">Services</a></li>
+    <li><a href="#about" data-i18n="navAbout">About</a></li>
+    <li><a href="#expertise" data-i18n="navExpertise">Expertise</a></li>
+    <li><a href="#contact" data-i18n="navContact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get in Touch</a>
+  <div class="nav-actions">
+    <div class="language-switch" aria-label="Language selection">
+      <button class="lang-btn is-active" type="button" data-lang="en" aria-pressed="true" title="English">EN</button>
+      <button class="lang-btn" type="button" data-lang="fr" aria-pressed="false" title="Français">FR</button>
+      <button class="lang-btn" type="button" data-lang="nl" aria-pressed="false" title="Vlaams">VL</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-i18n="navCta">Get in Touch</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Available for Projects — Brussels, Belgium</div>
-  <h1 class="hero-title">
+  <div class="hero-badge" data-i18n="heroBadge">Available for Projects — Brussels, Belgium</div>
+  <h1 class="hero-title" data-i18n-html="heroTitle">
     IT & Cyber<span class="line2">Security</span>
     <span class="line3">Engineering Consultancy</span>
   </h1>
-  <p class="hero-sub">
+  <p class="hero-sub" data-i18n="heroSub">
     Senior technical consultancy delivering network engineering, cybersecurity, cloud infrastructure, and facility management services across Belgium and beyond.
   </p>
   <div class="hero-actions">
-    <a href="#services" class="btn-primary">Our Services</a>
-    <a href="#contact" class="btn-secondary">Start a Project</a>
+    <a href="#services" class="btn-primary" data-i18n="heroPrimary">Our Services</a>
+    <a href="#contact" class="btn-secondary" data-i18n="heroSecondary">Start a Project</a>
   </div>
   <div class="scroll-hint">
-    <span>Scroll</span>
+    <span data-i18n="scroll">Scroll</span>
     <div class="scroll-line"></div>
   </div>
 </section>
@@ -430,58 +469,58 @@
 <div class="stats">
   <div class="stat">
     <div class="stat-num">18<span>+</span></div>
-    <div class="stat-label">Years Experience</div>
+    <div class="stat-label" data-i18n="statExperience">Years Experience</div>
   </div>
   <div class="stat">
     <div class="stat-num"><span>€</span>65</div>
-    <div class="stat-label">Per Hour (IT/Cyber)</div>
+    <div class="stat-label" data-i18n="statRate">Per Hour (IT/Cyber)</div>
   </div>
   <div class="stat">
     <div class="stat-num">2</div>
-    <div class="stat-label">Service Lines</div>
+    <div class="stat-label" data-i18n="statServiceLines">Service Lines</div>
   </div>
   <div class="stat">
     <div class="stat-num">BE<span>+</span></div>
-    <div class="stat-label">Brussels Based</div>
+    <div class="stat-label" data-i18n="statBase">Brussels Based</div>
   </div>
 </div>
 
 <!-- SERVICES -->
 <section class="section" id="services">
-  <span class="section-tag">What We Do</span>
-  <h2 class="section-title">Technical Services &<br>Consultancy</h2>
-  <p class="section-sub">Two specialist service lines covering the full stack of enterprise IT and infrastructure needs.</p>
+  <span class="section-tag" data-i18n="servicesTag">What We Do</span>
+  <h2 class="section-title" data-i18n-html="servicesTitle">Technical Services &<br>Consultancy</h2>
+  <p class="section-sub" data-i18n="servicesSub">Two specialist service lines covering the full stack of enterprise IT and infrastructure needs.</p>
 
   <div class="services-grid">
     <div class="service-card">
-      <div class="service-num">01 — IT & CYBERSECURITY</div>
-      <div class="service-name">Network Engineering</div>
-      <p class="service-desc">Design, build and secure enterprise network infrastructure. From architecture to deployment.</p>
+      <div class="service-num" data-i18n="service1Num">01 — IT & CYBERSECURITY</div>
+      <div class="service-name" data-i18n="service1Name">Network Engineering</div>
+      <p class="service-desc" data-i18n="service1Desc">Design, build and secure enterprise network infrastructure. From architecture to deployment.</p>
     </div>
     <div class="service-card">
-      <div class="service-num">02 — IT & CYBERSECURITY</div>
-      <div class="service-name">Cloud Infrastructure</div>
-      <p class="service-desc">Azure & Microsoft 365 architecture, migration, and managed services for SMEs and public institutions.</p>
+      <div class="service-num" data-i18n="service2Num">02 — IT & CYBERSECURITY</div>
+      <div class="service-name" data-i18n="service2Name">Cloud Infrastructure</div>
+      <p class="service-desc" data-i18n="service2Desc">Azure & Microsoft 365 architecture, migration, and managed services for SMEs and public institutions.</p>
     </div>
     <div class="service-card">
-      <div class="service-num">03 — IT & CYBERSECURITY</div>
-      <div class="service-name">Security Consulting</div>
-      <p class="service-desc">Vulnerability assessments, security audits, and hardening for IT environments of all scales.</p>
+      <div class="service-num" data-i18n="service3Num">03 — IT & CYBERSECURITY</div>
+      <div class="service-name" data-i18n="service3Name">Security Consulting</div>
+      <p class="service-desc" data-i18n="service3Desc">Vulnerability assessments, security audits, and hardening for IT environments of all scales.</p>
     </div>
     <div class="service-card">
-      <div class="service-num">04 — ENGINEERING</div>
-      <div class="service-name">Civil & Facility Engineering</div>
-      <p class="service-desc">Infrastructure coordination and facility management for complex multi-site projects.</p>
+      <div class="service-num" data-i18n="service4Num">04 — ENGINEERING</div>
+      <div class="service-name" data-i18n="service4Name">Civil & Facility Engineering</div>
+      <p class="service-desc" data-i18n="service4Desc">Infrastructure coordination and facility management for complex multi-site projects.</p>
     </div>
     <div class="service-card">
-      <div class="service-num">05 — ENGINEERING</div>
-      <div class="service-name">Systems Administration</div>
-      <p class="service-desc">End-to-end server, endpoint, and identity management. IT kiosk and user support delivery.</p>
+      <div class="service-num" data-i18n="service5Num">05 — ENGINEERING</div>
+      <div class="service-name" data-i18n="service5Name">Systems Administration</div>
+      <p class="service-desc" data-i18n="service5Desc">End-to-end server, endpoint, and identity management. IT kiosk and user support delivery.</p>
     </div>
     <div class="service-card">
-      <div class="service-num">06 — CONSULTING</div>
-      <div class="service-name">Project Delivery</div>
-      <p class="service-desc">Technical project management from scoping to handover — on time, on spec, on budget.</p>
+      <div class="service-num" data-i18n="service6Num">06 — CONSULTING</div>
+      <div class="service-name" data-i18n="service6Name">Project Delivery</div>
+      <p class="service-desc" data-i18n="service6Desc">Technical project management from scoping to handover — on time, on spec, on budget.</p>
     </div>
   </div>
 </section>
@@ -494,37 +533,37 @@
     <div class="about-card main">
       <div>
         <div class="section-tag" style="margin-bottom:.5rem">AlbJon Tech SRL</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;line-height:1.3;">Brussels-based<br>Technical Consultancy</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;line-height:1.3;" data-i18n-html="aboutCardTitle">Brussels-based<br>Technical Consultancy</div>
       </div>
       <div>
         <div class="hex-grid" id="hexGrid"></div>
-        <div style="margin-top:1rem;font-size:.78rem;color:var(--grey)">Skills & technology coverage</div>
+        <div style="margin-top:1rem;font-size:.78rem;color:var(--grey)" data-i18n="aboutCardCoverage">Skills & technology coverage</div>
       </div>
     </div>
     <div class="about-card dot">
       <div style="text-align:center">
         <span>18</span>
-        <div class="years-label">Years</div>
+        <div class="years-label" data-i18n="years">Years</div>
       </div>
     </div>
     <div class="about-card tag">
-      <div class="about-tag-title">Available Now</div>
-      <div class="about-tag-sub">Time & Materials · Remote & On-site</div>
+      <div class="about-tag-title" data-i18n="aboutTagTitle">Available Now</div>
+      <div class="about-tag-sub" data-i18n="aboutTagSub">Time & Materials · Remote & On-site</div>
     </div>
   </div>
 
   <div class="about-text">
-    <span class="section-tag">About</span>
-    <h2 class="section-title">Senior Technical Expert<br><span class="text-cyan">Ready to Deliver</span></h2>
-    <p style="color:var(--grey);line-height:1.8;font-size:.95rem">
+    <span class="section-tag" data-i18n="aboutTag">About</span>
+    <h2 class="section-title" data-i18n-html="aboutTitle">Senior Technical Expert<br><span class="text-cyan">Ready to Deliver</span></h2>
+    <p style="color:var(--grey);line-height:1.8;font-size:.95rem" data-i18n="aboutBody">
       AlbJon Tech SRL is a Brussels-registered technical consultancy founded by Kaso Levanaj, a senior professional with 18+ years of hands-on experience across enterprise IT, cybersecurity, and civil engineering.
     </p>
     <ul class="about-list">
-      <li>Microsoft Azure & M365 certified implementations</li>
-      <li>Cybersecurity assessments & infrastructure hardening</li>
-      <li>Network design, build, and operations</li>
-      <li>Civil & facility engineering project coordination</li>
-      <li>Serving Belgian SMEs, public institutions & international organisations</li>
+      <li data-i18n="aboutList1">Microsoft Azure & M365 certified implementations</li>
+      <li data-i18n="aboutList2">Cybersecurity assessments & infrastructure hardening</li>
+      <li data-i18n="aboutList3">Network design, build, and operations</li>
+      <li data-i18n="aboutList4">Civil & facility engineering project coordination</li>
+      <li data-i18n="aboutList5">Serving Belgian SMEs, public institutions & international organisations</li>
     </ul>
   </div>
 </div>
@@ -532,8 +571,8 @@
 <!-- EXPERTISE BARS -->
 <div class="expertise" id="expertise">
   <div class="expertise-inner">
-    <span class="section-tag">Technical Depth</span>
-    <h2 class="section-title">Areas of Expertise</h2>
+    <span class="section-tag" data-i18n="expertiseTag">Technical Depth</span>
+    <h2 class="section-title" data-i18n="expertiseTitle">Areas of Expertise</h2>
     <div class="skills-grid" id="skillsGrid">
       <!-- populated by JS -->
     </div>
@@ -543,57 +582,58 @@
 <!-- CONTACT -->
 <section class="contact-wrap" id="contact">
   <div class="contact-info">
-    <span class="section-tag">Contact</span>
-    <h2 class="section-title">Let's Work<br><span class="text-cyan">Together</span></h2>
-    <p style="color:var(--grey);font-size:.95rem;line-height:1.8;">Available for time-and-materials engagements across Belgium and remotely. Senior rates, no agency markup.</p>
+    <span class="section-tag" data-i18n="contactTag">Contact</span>
+    <h2 class="section-title" data-i18n-html="contactTitle">Let's Work<br><span class="text-cyan">Together</span></h2>
+    <p style="color:var(--grey);font-size:.95rem;line-height:1.8;" data-i18n="contactBody">Available for time-and-materials engagements across Belgium and remotely. Senior rates, no agency markup.</p>
 
     <div class="contact-item">
       <svg class="contact-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
       <div>
-        <div class="contact-item-label">Location</div>
-        <div class="contact-item-val">Brussels, Belgium</div>
+        <div class="contact-item-label" data-i18n="contactLocationLabel">Location</div>
+        <div class="contact-item-val" data-i18n="contactLocationValue">Brussels, Belgium</div>
       </div>
     </div>
     <div class="contact-item">
       <svg class="contact-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
       <div>
-        <div class="contact-item-label">Email</div>
+        <div class="contact-item-label" data-i18n="contactEmailLabel">Email</div>
         <div class="contact-item-val">info@albjontech.be</div>
       </div>
     </div>
     <div class="contact-item">
       <svg class="contact-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.45 1.21z"/></svg>
       <div>
-        <div class="contact-item-label">Rate</div>
-        <div class="contact-item-val">From €65/hr — Time & Materials</div>
+        <div class="contact-item-label" data-i18n="contactRateLabel">Rate</div>
+        <div class="contact-item-val" data-i18n="contactRateValue">From €65/hr — Time & Materials</div>
       </div>
     </div>
   </div>
 
   <form class="contact-form" onsubmit="handleSubmit(event)">
     <div class="form-row">
-      <input class="form-field" type="text" placeholder="Your Name" required>
-      <input class="form-field" type="email" placeholder="Email Address" required>
+      <input class="form-field" type="text" placeholder="Your Name" data-i18n-placeholder="formName" required>
+      <input class="form-field" type="email" placeholder="Email Address" data-i18n-placeholder="formEmail" required>
     </div>
-    <input class="form-field" type="text" placeholder="Company / Organisation">
-    <input class="form-field" type="text" placeholder="Subject">
-    <textarea class="form-field" placeholder="Tell us about your project or requirement..."></textarea>
-    <button type="submit" class="btn-primary" style="align-self:flex-start">Send Message →</button>
-    <div id="formMsg" style="font-size:.85rem;color:#4ade80;display:none">✓ Message sent — we'll be in touch shortly.</div>
+    <input class="form-field" type="text" placeholder="Company / Organisation" data-i18n-placeholder="formCompany">
+    <input class="form-field" type="text" placeholder="Subject" data-i18n-placeholder="formSubject">
+    <textarea class="form-field" placeholder="Tell us about your project or requirement..." data-i18n-placeholder="formMessage"></textarea>
+    <button type="submit" class="btn-primary" style="align-self:flex-start" data-i18n="formSubmit">Send Message →</button>
+    <div id="formMsg" style="font-size:.85rem;color:#4ade80;display:none" data-i18n="formSuccess">✓ Message sent — we'll be in touch shortly.</div>
   </form>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Alb<span>Jon</span> Tech</div>
-  <div class="footer-copy">© 2026 AlbJon Tech SRL · Brussels, Belgium · BE VAT Registered</div>
+  <div class="footer-copy" data-i18n="footerCopy">© 2026 AlbJon Tech SRL · Brussels, Belgium · BE VAT Registered</div>
   <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="#services" data-i18n="navServices">Services</a>
+    <a href="#about" data-i18n="navAbout">About</a>
+    <a href="#contact" data-i18n="navContact">Contact</a>
   </div>
 </footer>
 
+<script src="translations.js"></script>
 <script>
 // HEX GRID
 const grid = document.getElementById('hexGrid');
@@ -604,39 +644,121 @@ levels.forEach(l => {
   grid.appendChild(d);
 });
 
-// SKILLS
-const skills = [
-  { name: 'Network Engineering & Security', pct: 95 },
-  { name: 'Azure Cloud & M365', pct: 90 },
-  { name: 'Cybersecurity & Auditing', pct: 88 },
-  { name: 'Systems Administration', pct: 92 },
-  { name: 'Civil & Facility Engineering', pct: 85 },
-  { name: 'Project Management & Delivery', pct: 80 },
-];
+// LANGUAGE SWITCHING
+const translations = window.ALBJON_TRANSLATIONS || {};
+let activeLang = getStoredLang() || 'en';
+let skillsAnimated = false;
 const sg = document.getElementById('skillsGrid');
-skills.forEach((s, i) => {
-  sg.innerHTML += \`
-    <div class="skill-row">
-      <div class="skill-top">
-        <span class="skill-name">\${s.name}</span>
-        <span class="skill-pct">\${s.pct}%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width:\${s.pct}%;animation-delay:\${i*0.15}s" data-target="\${s.pct}"></div>
-      </div>
-    </div>
-  \`;
+const nav = document.querySelector('nav');
+
+function getStoredLang() {
+  try {
+    return localStorage.getItem('albjon_language');
+  } catch {
+    return null;
+  }
+}
+
+function storeLang(lang) {
+  try {
+    localStorage.setItem('albjon_language', lang);
+  } catch {
+    // The language switch still works when storage is unavailable.
+  }
+}
+
+function currentCopy() {
+  return translations[activeLang] || translations.en || {};
+}
+
+function translate(key) {
+  return currentCopy()[key] ?? translations.en?.[key] ?? '';
+}
+
+function renderSkills() {
+  const skills = translate('skills');
+  sg.innerHTML = '';
+
+  if (!Array.isArray(skills)) return;
+
+  skills.forEach((skill, i) => {
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+
+    const top = document.createElement('div');
+    top.className = 'skill-top';
+
+    const name = document.createElement('span');
+    name.className = 'skill-name';
+    name.textContent = skill.name;
+
+    const pct = document.createElement('span');
+    pct.className = 'skill-pct';
+    pct.textContent = `${skill.pct}%`;
+
+    const bar = document.createElement('div');
+    bar.className = 'skill-bar';
+
+    const fill = document.createElement('div');
+    fill.className = skillsAnimated ? 'skill-fill animated' : 'skill-fill';
+    fill.style.width = `${skill.pct}%`;
+    fill.style.animationDelay = `${i * 0.15}s`;
+    fill.dataset.target = skill.pct;
+
+    top.append(name, pct);
+    bar.appendChild(fill);
+    row.append(top, bar);
+    sg.appendChild(row);
+  });
+}
+
+function animateSkills() {
+  skillsAnimated = true;
+  document.querySelectorAll('.skill-fill').forEach(fill => fill.classList.add('animated'));
+}
+
+function setLanguage(lang) {
+  activeLang = translations[lang] ? lang : 'en';
+  const copy = currentCopy();
+
+  document.documentElement.lang = copy.lang || activeLang;
+  document.title = translate('pageTitle');
+  document.querySelector('.language-switch')?.setAttribute('aria-label', translate('switchLabel'));
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = translate(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    el.innerHTML = translate(el.dataset.i18nHtml);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = translate(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const selected = btn.dataset.lang === activeLang;
+    btn.classList.toggle('is-active', selected);
+    btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+  });
+
+  renderSkills();
+  storeLang(activeLang);
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
 });
 
 // Animate bars on scroll
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.querySelectorAll('.skill-fill').forEach(f => f.classList.add('animated'));
+      animateSkills();
     }
   });
 }, { threshold: 0.2 });
 observer.observe(document.getElementById('expertise'));
+
+setLanguage(activeLang);
 
 // FORM
 function handleSubmit(e) {
@@ -646,9 +768,11 @@ function handleSubmit(e) {
 }
 
 // Subtle nav shrink on scroll
-window.addEventListener('scroll', () => {
-  document.querySelector('nav').style.padding = window.scrollY > 60 ? '1rem 4rem' : '1.4rem 4rem';
-});
+function updateNavState() {
+  nav.classList.toggle('is-scrolled', window.scrollY > 60);
+}
+window.addEventListener('scroll', updateNavState);
+updateNavState();
 </script>
 </body>
 </html>

@@ -165,10 +165,42 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(document.getElementById('expertise'));
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  document.getElementById('formMsg').style.display = 'block';
-  e.target.reset();
+  const form = e.target;
+  const formMsg = document.getElementById('formMsg');
+  const submitButton = form.querySelector('[type="submit"]');
+  const originalButtonText = submitButton.textContent;
+
+  formMsg.style.display = 'none';
+  submitButton.disabled = true;
+  submitButton.textContent = translate('formSending');
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
+
+    formMsg.style.display = 'block';
+
+    if (response.ok) {
+      formMsg.textContent = translate('formSuccess');
+      formMsg.classList.remove('is-error');
+      form.reset();
+    } else {
+      formMsg.textContent = translate('formError');
+      formMsg.classList.add('is-error');
+    }
+  } catch {
+    formMsg.style.display = 'block';
+    formMsg.textContent = translate('formError');
+    formMsg.classList.add('is-error');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+  }
 }
 
 window.handleSubmit = handleSubmit;

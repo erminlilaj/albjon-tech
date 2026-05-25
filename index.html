@@ -240,25 +240,26 @@
     </div>
   </div>
 
-  <form class="contact-form" onsubmit="handleSubmit(event)">
+  <form class="contact-form" action="https://formspree.io/f/xdajweze" method="POST" onsubmit="handleSubmit(event)">
+    <input type="hidden" name="_subject" value="New AlbJon Tech website enquiry">
     <div class="form-row">
       <label class="form-group">
         <span data-i18n="formNameLabel">Name</span>
-        <input class="form-field" type="text" placeholder="Your Name" data-i18n-placeholder="formName" required>
+        <input class="form-field" name="name" type="text" placeholder="Your Name" data-i18n-placeholder="formName" required>
       </label>
       <label class="form-group">
         <span data-i18n="formEmailLabel">Email</span>
-        <input class="form-field" type="email" placeholder="Email Address" data-i18n-placeholder="formEmail" required>
+        <input class="form-field" name="email" type="email" placeholder="Email Address" data-i18n-placeholder="formEmail" required>
       </label>
     </div>
     <label class="form-group">
       <span data-i18n="formCompanyLabel">Company</span>
-      <input class="form-field" type="text" placeholder="Company / Organisation" data-i18n-placeholder="formCompany">
+      <input class="form-field" name="company" type="text" placeholder="Company / Organisation" data-i18n-placeholder="formCompany">
     </label>
     <div class="form-row">
       <label class="form-group">
         <span data-i18n="formServiceLabel">Service area</span>
-        <select class="form-field" id="serviceArea">
+        <select class="form-field" id="serviceArea" name="service_area">
           <option value="" data-i18n="formServicePlaceholder">Select a service area</option>
           <option value="network" data-i18n="formServiceNetwork">Network & security</option>
           <option value="cloud" data-i18n="formServiceCloud">Cloud & Microsoft 365</option>
@@ -268,12 +269,12 @@
       </label>
       <label class="form-group">
         <span data-i18n="formSubjectLabel">Subject</span>
-        <input class="form-field" type="text" placeholder="Subject" data-i18n-placeholder="formSubject">
+        <input class="form-field" name="subject" type="text" placeholder="Subject" data-i18n-placeholder="formSubject">
       </label>
     </div>
     <label class="form-group">
       <span data-i18n="formMessageLabel">Project details</span>
-      <textarea class="form-field" placeholder="Tell us about your project or requirement..." data-i18n-placeholder="formMessage"></textarea>
+      <textarea class="form-field" name="message" placeholder="Tell us about your project or requirement..." data-i18n-placeholder="formMessage" required></textarea>
     </label>
     <div class="contact-note" data-i18n="contactNote">Typical response within one business day.</div>
     <button type="submit" class="btn-primary" style="align-self:flex-start" data-i18n="formSubmit">Send Message →</button>

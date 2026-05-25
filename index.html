@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlbJon Tech — IT & Cybersecurity Consultancy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:    #0a0f1e;
+    --navy2:   #0d1530;
+    --blue:    #1a3a6e;
+    --accent:  #2d7dd2;
+    --cyan:    #4fc3f7;
+    --gold:    #c9a84c;
+    --white:   #f0f4ff;
+    --grey:    #8899bb;
+    --border:  rgba(45,125,210,0.18);
+    --glow:    rgba(79,195,247,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: .5;
+  }
+
+  /* ── AMBIENT GLOW ── */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-orb.one { width: 600px; height: 600px; background: rgba(29,80,140,0.35); top: -200px; right: -150px; animation: drift1 18s ease-in-out infinite alternate; }
+  .glow-orb.two { width: 400px; height: 400px; background: rgba(79,195,247,0.1); bottom: 10%; left: -100px; animation: drift2 22s ease-in-out infinite alternate; }
+  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-80px,60px) scale(1.15); } }
+  @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(60px,-40px) scale(1.1); } }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(10,15,30,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.35rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+  .logo span { color: var(--cyan); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--grey); text-decoration: none;
+    font-size: .875rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--cyan);
+    padding: .5rem 1.3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+    cursor: pointer; transition: all .25s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+  }
+
+  /* animated grid lines */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(45,125,210,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,125,210,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    pointer-events: none;
+    animation: gridShift 8s ease-in-out infinite alternate;
+  }
+  @keyframes gridShift { from { background-position: 0 0; } to { background-position: 10px 10px; } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border: 1px solid var(--border);
+    background: rgba(45,125,210,0.08);
+    padding: .35rem 1rem;
+    font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan);
+    margin-bottom: 2.5rem;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-badge::before { content: '●'; font-size: .5rem; color: #4ade80; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: .95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .9s .1s ease both;
+  }
+  .hero-title .line2 { color: var(--cyan); display: block; }
+  .hero-title .line3 { color: var(--grey); font-weight: 400; font-size: .52em; display: block; margin-top: .2em; letter-spacing: .01em; }
+
+  .hero-sub {
+    max-width: 560px;
+    color: var(--grey);
+    font-size: 1.05rem; line-height: 1.7;
+    margin-bottom: 3rem;
+    animation: fadeUp 1s .2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; justify-content: center;
+    animation: fadeUp 1s .3s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #1557a0);
+    color: #fff; border: none;
+    padding: .85rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem; font-weight: 500; letter-spacing: .04em;
+    cursor: pointer; text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 30px rgba(45,125,210,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(45,125,210,0.5); }
+  .btn-secondary {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--grey); padding: .85rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem; letter-spacing: .04em;
+    cursor: pointer; text-decoration: none;
+    transition: all .2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--white); }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    color: var(--grey); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+    animation: fadeUp 1.2s .6s ease both;
+  }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(var(--accent), transparent); animation: scrollDrop 2s ease-in-out infinite; }
+  @keyframes scrollDrop { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── STATS BAR ── */
+  .stats {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(4,1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,21,48,0.6);
+    backdrop-filter: blur(10px);
+  }
+  .stat {
+    padding: 2.5rem 2rem; text-align: center;
+    border-right: 1px solid var(--border);
+    transition: background .3s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(45,125,210,0.06); }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 2.4rem; color: var(--white);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--cyan); }
+  .stat-label { font-size: .8rem; color: var(--grey); letter-spacing: .08em; text-transform: uppercase; margin-top: .5rem; }
+
+  /* ── SERVICES ── */
+  .section {
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto;
+    padding: 6rem 4rem;
+  }
+  .section-tag {
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: clamp(1.8rem,4vw,2.8rem);
+    line-height: 1.1; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--grey); font-size: 1rem; line-height: 1.7; max-width: 480px; margin-bottom: 3.5rem; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); }
+  .service-card {
+    background: var(--navy2);
+    padding: 2.5rem;
+    transition: background .3s, transform .3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(45,125,210,0.08), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+  .service-card:hover { background: #111c3a; transform: translateY(-2px); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 48px; height: 48px; margin-bottom: 1.5rem;
+    color: var(--cyan);
+  }
+  .service-num {
+    font-family: 'Syne', sans-serif;
+    font-size: .7rem; color: var(--accent); letter-spacing: .15em;
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1.1rem; margin-bottom: .8rem;
+  }
+  .service-desc { color: var(--grey); font-size: .9rem; line-height: 1.7; }
+
+  /* ── ABOUT SPLIT ── */
+  .about-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    padding: 6rem 4rem;
+    max-width: 1200px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .about-visual {
+    position: relative; height: 420px;
+  }
+  .about-card {
+    position: absolute;
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    padding: 1.8rem 2rem;
+  }
+  .about-card.main { inset: 0; display: flex; flex-direction: column; justify-content: space-between; }
+  .about-card.tag {
+    bottom: -30px; right: -30px; width: 220px;
+    background: linear-gradient(135deg, var(--accent), #1557a0);
+    border: none;
+  }
+  .about-card.dot {
+    top: -20px; left: -20px; width: 110px; height: 110px;
+    background: rgba(79,195,247,0.06); border-color: rgba(79,195,247,0.2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-card.dot span { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--cyan); }
+  .years-label { font-size:.65rem; color:var(--cyan); letter-spacing:.12em; text-transform:uppercase; }
+  .hex-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 6px; }
+  .hex { height: 8px; border-radius: 1px; }
+  .hex.on { background: var(--accent); }
+  .hex.mid { background: rgba(45,125,210,0.35); }
+  .hex.off { background: rgba(45,125,210,0.1); }
+  .about-tag-title { font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; color:#fff; }
+  .about-tag-sub { font-size:.75rem; color:rgba(255,255,255,.7); margin-top:.3rem; }
+
+  .about-text .section-title { margin-bottom: 1.5rem; }
+  .about-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: .8rem; }
+  .about-list li {
+    display: flex; align-items: flex-start; gap: .9rem;
+    font-size: .9rem; color: var(--grey); line-height: 1.6;
+  }
+  .about-list li::before { content: '→'; color: var(--cyan); font-weight: 500; flex-shrink: 0; margin-top: .05em; }
+
+  /* ── EXPERTISE BAR ── */
+  .expertise {
+    position: relative; z-index: 1;
+    background: rgba(13,21,48,0.5);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 4rem;
+  }
+  .expertise-inner { max-width: 1200px; margin: 0 auto; }
+  .skills-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .skill-row { display: flex; flex-direction: column; gap: .6rem; }
+  .skill-top { display: flex; justify-content: space-between; font-size: .85rem; }
+  .skill-name { color: var(--white); font-weight: 400; }
+  .skill-pct { color: var(--cyan); font-family: 'Syne', sans-serif; font-size: .8rem; }
+  .skill-bar { height: 3px; background: rgba(45,125,210,0.15); position: relative; overflow: hidden; }
+  .skill-fill {
+    position: absolute; left: 0; top: 0; height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    transform-origin: left;
+    animation: fillBar 1.5s cubic-bezier(.4,0,.2,1) both;
+    animation-play-state: paused;
+  }
+  .skill-fill.animated { animation-play-state: running; }
+  @keyframes fillBar { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+
+  /* ── CONTACT ── */
+  .contact-wrap {
+    max-width: 1200px; margin: 0 auto;
+    padding: 6rem 4rem;
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-icon { color: var(--cyan); margin-top: .1em; flex-shrink: 0; }
+  .contact-item-label { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--grey); }
+  .contact-item-val { color: var(--white); margin-top: .2rem; font-size: .95rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field {
+    background: rgba(13,21,48,0.8);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: .85rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    outline: none; transition: border-color .25s;
+    width: 100%;
+  }
+  .form-field::placeholder { color: var(--grey); }
+  .form-field:focus { border-color: var(--accent); }
+  textarea.form-field { resize: vertical; min-height: 120px; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,15,30,0.8);
+  }
+  .footer-logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+  .footer-logo span { color: var(--cyan); }
+  .footer-copy { font-size: .78rem; color: var(--grey); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: var(--grey); text-decoration: none; font-size: .78rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px; background: var(--border);
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .section, .about-wrap, .contact-wrap { padding: 4rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2,1fr); }
+    .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .expertise { padding: 4rem 1.5rem; }
+  }
+
+  /* ── UTIL ── */
+  .text-cyan { color: var(--cyan); }
+  .mt-1 { margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="glow-orb one"></div>
+<div class="glow-orb two"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Alb<span>Jon</span> Tech</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Available for Projects — Brussels, Belgium</div>
+  <h1 class="hero-title">
+    IT & Cyber<span class="line2">Security</span>
+    <span class="line3">Engineering Consultancy</span>
+  </h1>
+  <p class="hero-sub">
+    Senior technical consultancy delivering network engineering, cybersecurity, cloud infrastructure, and facility management services across Belgium and beyond.
+  </p>
+  <div class="hero-actions">
+    <a href="#services" class="btn-primary">Our Services</a>
+    <a href="#contact" class="btn-secondary">Start a Project</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">18<span>+</span></div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span>€</span>65</div>
+    <div class="stat-label">Per Hour (IT/Cyber)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Service Lines</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">BE<span>+</span></div>
+    <div class="stat-label">Brussels Based</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <span class="section-tag">What We Do</span>
+  <h2 class="section-title">Technical Services &<br>Consultancy</h2>
+  <p class="section-sub">Two specialist service lines covering the full stack of enterprise IT and infrastructure needs.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01 — IT & CYBERSECURITY</div>
+      <div class="service-name">Network Engineering</div>
+      <p class="service-desc">Design, build and secure enterprise network infrastructure. From architecture to deployment.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02 — IT & CYBERSECURITY</div>
+      <div class="service-name">Cloud Infrastructure</div>
+      <p class="service-desc">Azure & Microsoft 365 architecture, migration, and managed services for SMEs and public institutions.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03 — IT & CYBERSECURITY</div>
+      <div class="service-name">Security Consulting</div>
+      <p class="service-desc">Vulnerability assessments, security audits, and hardening for IT environments of all scales.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04 — ENGINEERING</div>
+      <div class="service-name">Civil & Facility Engineering</div>
+      <p class="service-desc">Infrastructure coordination and facility management for complex multi-site projects.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05 — ENGINEERING</div>
+      <div class="service-name">Systems Administration</div>
+      <p class="service-desc">End-to-end server, endpoint, and identity management. IT kiosk and user support delivery.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06 — CONSULTING</div>
+      <div class="service-name">Project Delivery</div>
+      <p class="service-desc">Technical project management from scoping to handover — on time, on spec, on budget.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div class="about-wrap" id="about">
+  <div class="about-visual">
+    <div class="about-card main">
+      <div>
+        <div class="section-tag" style="margin-bottom:.5rem">AlbJon Tech SRL</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;line-height:1.3;">Brussels-based<br>Technical Consultancy</div>
+      </div>
+      <div>
+        <div class="hex-grid" id="hexGrid"></div>
+        <div style="margin-top:1rem;font-size:.78rem;color:var(--grey)">Skills & technology coverage</div>
+      </div>
+    </div>
+    <div class="about-card dot">
+      <div style="text-align:center">
+        <span>18</span>
+        <div class="years-label">Years</div>
+      </div>
+    </div>
+    <div class="about-card tag">
+      <div class="about-tag-title">Available Now</div>
+      <div class="about-tag-sub">Time & Materials · Remote & On-site</div>
+    </div>
+  </div>
+
+  <div class="about-text">
+    <span class="section-tag">About</span>
+    <h2 class="section-title">Senior Technical Expert<br><span class="text-cyan">Ready to Deliver</span></h2>
+    <p style="color:var(--grey);line-height:1.8;font-size:.95rem">
+      AlbJon Tech SRL is a Brussels-registered technical consultancy founded by Kaso Levanaj, a senior professional with 18+ years of hands-on experience across enterprise IT, cybersecurity, and civil engineering.
+    </p>
+    <ul class="about-list">
+      <li>Microsoft Azure & M365 certified implementations</li>
+      <li>Cybersecurity assessments & infrastructure hardening</li>
+      <li>Network design, build, and operations</li>
+      <li>Civil & facility engineering project coordination</li>
+      <li>Serving Belgian SMEs, public institutions & international organisations</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EXPERTISE BARS -->
+<div class="expertise" id="expertise">
+  <div class="expertise-inner">
+    <span class="section-tag">Technical Depth</span>
+    <h2 class="section-title">Areas of Expertise</h2>
+    <div class="skills-grid" id="skillsGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-wrap" id="contact">
+  <div class="contact-info">
+    <span class="section-tag">Contact</span>
+    <h2 class="section-title">Let's Work<br><span class="text-cyan">Together</span></h2>
+    <p style="color:var(--grey);font-size:.95rem;line-height:1.8;">Available for time-and-materials engagements across Belgium and remotely. Senior rates, no agency markup.</p>
+
+    <div class="contact-item">
+      <svg class="contact-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      <div>
+        <div class="contact-item-label">Location</div>
+        <div class="contact-item-val">Brussels, Belgium</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <svg class="contact-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      <div>
+        <div class="contact-item-label">Email</div>
+        <div class="contact-item-val">info@albjontech.be</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <svg class="contact-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.58a1 1 0 01-.45 1.21z"/></svg>
+      <div>
+        <div class="contact-item-label">Rate</div>
+        <div class="contact-item-val">From €65/hr — Time & Materials</div>
+      </div>
+    </div>
+  </div>
+
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <input class="form-field" type="text" placeholder="Your Name" required>
+      <input class="form-field" type="email" placeholder="Email Address" required>
+    </div>
+    <input class="form-field" type="text" placeholder="Company / Organisation">
+    <input class="form-field" type="text" placeholder="Subject">
+    <textarea class="form-field" placeholder="Tell us about your project or requirement..."></textarea>
+    <button type="submit" class="btn-primary" style="align-self:flex-start">Send Message →</button>
+    <div id="formMsg" style="font-size:.85rem;color:#4ade80;display:none">✓ Message sent — we'll be in touch shortly.</div>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Alb<span>Jon</span> Tech</div>
+  <div class="footer-copy">© 2026 AlbJon Tech SRL · Brussels, Belgium · BE VAT Registered</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// HEX GRID
+const grid = document.getElementById('hexGrid');
+const levels = ['on','on','on','mid','mid','off','off','mid','on','on','mid','off','on','on','on','mid','off','off','on','mid','on','on','on','mid'];
+levels.forEach(l => {
+  const d = document.createElement('div');
+  d.className = `hex ${l}`;
+  grid.appendChild(d);
+});
+
+// SKILLS
+const skills = [
+  { name: 'Network Engineering & Security', pct: 95 },
+  { name: 'Azure Cloud & M365', pct: 90 },
+  { name: 'Cybersecurity & Auditing', pct: 88 },
+  { name: 'Systems Administration', pct: 92 },
+  { name: 'Civil & Facility Engineering', pct: 85 },
+  { name: 'Project Management & Delivery', pct: 80 },
+];
+const sg = document.getElementById('skillsGrid');
+skills.forEach((s, i) => {
+  sg.innerHTML += \`
+    <div class="skill-row">
+      <div class="skill-top">
+        <span class="skill-name">\${s.name}</span>
+        <span class="skill-pct">\${s.pct}%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width:\${s.pct}%;animation-delay:\${i*0.15}s" data-target="\${s.pct}"></div>
+      </div>
+    </div>
+  \`;
+});
+
+// Animate bars on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(f => f.classList.add('animated'));
+    }
+  });
+}, { threshold: 0.2 });
+observer.observe(document.getElementById('expertise'));
+
+// FORM
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('formMsg').style.display = 'block';
+  e.target.reset();
+}
+
+// Subtle nav shrink on scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.padding = window.scrollY > 60 ? '1rem 4rem' : '1.4rem 4rem';
+});
+</script>
+</body>
+</html>

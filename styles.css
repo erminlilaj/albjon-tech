@@ -665,7 +665,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 
 .platform-logos {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: .65rem;
   margin-bottom: 1.2rem;
 }
@@ -717,6 +717,29 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   border-right-color: #ffb900;
   transform: rotate(-12deg);
 }
+
+.cisco-mark {
+  width: 1.3rem;
+  height: 1rem;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.cisco-mark i {
+  width: 2px;
+  border-radius: 999px;
+  background: #1ba0d7;
+}
+
+.cisco-mark i:nth-child(1),
+.cisco-mark i:nth-child(6) { height: .42rem; }
+.cisco-mark i:nth-child(2),
+.cisco-mark i:nth-child(5) { height: .72rem; }
+.cisco-mark i:nth-child(3),
+.cisco-mark i:nth-child(4) { height: 1rem; }
 
 .hex-grid {
   display: grid;

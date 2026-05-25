@@ -62,6 +62,7 @@ window.ALBJON_TRANSLATIONS = {
     contactLocationLabel: 'Location',
     contactLocationValue: 'Brussels, Belgium',
     contactEmailLabel: 'Email',
+    contactLinkedInLabel: 'LinkedIn',
     contactRateLabel: 'Rate',
     contactRateValue: 'From €65/hr — Time & Materials',
     contactNote: 'Share the essentials and we will come back with practical next steps.',
@@ -84,6 +85,7 @@ window.ALBJON_TRANSLATIONS = {
     formSubmit: 'Send Message →',
     formSuccess: '✓ Message sent — we\'ll be in touch shortly.',
     footerCopy: '© 2026 AlbJon Tech SRL · Brussels, Belgium · BE VAT Registered',
+    footerLinkedIn: 'LinkedIn',
     skillDomainSpecialist: 'Specialist',
     skills: [
       { name: 'Network Engineering & Security', domain: 'Infrastructure' },
@@ -157,6 +159,7 @@ window.ALBJON_TRANSLATIONS = {
     contactLocationLabel: 'Localisation',
     contactLocationValue: 'Bruxelles, Belgique',
     contactEmailLabel: 'E-mail',
+    contactLinkedInLabel: 'LinkedIn',
     contactRateLabel: 'Tarif',
     contactRateValue: 'À partir de 65 €/h — Régie',
     contactNote: 'Partagez l’essentiel et nous reviendrons avec des prochaines étapes concrètes.',
@@ -179,6 +182,7 @@ window.ALBJON_TRANSLATIONS = {
     formSubmit: 'Envoyer le message →',
     formSuccess: '✓ Message envoyé — nous vous recontacterons rapidement.',
     footerCopy: '© 2026 AlbJon Tech SRL · Bruxelles, Belgique · TVA BE enregistrée',
+    footerLinkedIn: 'LinkedIn',
     skillDomainSpecialist: 'Spécialiste',
     skills: [
       { name: 'Ingénierie réseau & sécurité', domain: 'Infrastructure' },
@@ -252,6 +256,7 @@ window.ALBJON_TRANSLATIONS = {
     contactLocationLabel: 'Locatie',
     contactLocationValue: 'Brussel, België',
     contactEmailLabel: 'E-mail',
+    contactLinkedInLabel: 'LinkedIn',
     contactRateLabel: 'Tarief',
     contactRateValue: 'Vanaf €65/u — Regie',
     contactNote: 'Deel de essentie en we komen terug met concrete volgende stappen.',
@@ -274,6 +279,7 @@ window.ALBJON_TRANSLATIONS = {
     formSubmit: 'Bericht verzenden →',
     formSuccess: '✓ Bericht verzonden — we nemen binnenkort contact op.',
     footerCopy: '© 2026 AlbJon Tech SRL · Brussel, België · BE btw-geregistreerd',
+    footerLinkedIn: 'LinkedIn',
     skillDomainSpecialist: 'Specialist',
     skills: [
       { name: 'Netwerkengineering & beveiliging', domain: 'Infrastructuur' },

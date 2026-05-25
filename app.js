@@ -165,6 +165,17 @@ const observer = new IntersectionObserver(entries => {
 
 observer.observe(document.getElementById('expertise'));
 
+function formspreeErrorMessage(data) {
+  if (Array.isArray(data?.errors) && data.errors.length) {
+    return data.errors
+      .map(error => error.message || error.code)
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  return data?.error || data?.message || translate('formError');
+}
+
 async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
@@ -182,6 +193,7 @@ async function handleSubmit(e) {
       body: new FormData(form),
       headers: { Accept: 'application/json' },
     });
+    const data = await response.json().catch(() => ({}));
 
     formMsg.style.display = 'block';
 
@@ -190,7 +202,7 @@ async function handleSubmit(e) {
       formMsg.classList.remove('is-error');
       form.reset();
     } else {
-      formMsg.textContent = translate('formError');
+      formMsg.textContent = formspreeErrorMessage(data);
       formMsg.classList.add('is-error');
     }
   } catch {

@@ -240,7 +240,7 @@
     </div>
   </div>
 
-  <form class="contact-form" action="https://formspree.io/f/xdajweze" method="POST" onsubmit="handleSubmit(event)">
+  <form class="contact-form" id="contactForm" action="https://formspree.io/f/xdajweze" method="POST" accept-charset="UTF-8" onsubmit="handleSubmit(event)">
     <input type="hidden" name="_subject" value="New AlbJon Tech website enquiry">
     <div class="form-row">
       <label class="form-group">
@@ -278,7 +278,7 @@
     </label>
     <div class="contact-note" data-i18n="contactNote">Typical response within one business day.</div>
     <button type="submit" class="btn-primary" style="align-self:flex-start" data-i18n="formSubmit">Send Message →</button>
-    <div id="formMsg" style="font-size:.85rem;color:#4ade80;display:none" data-i18n="formSuccess">✓ Message sent — we'll be in touch shortly.</div>
+    <div id="formMsg" role="status" aria-live="polite" style="font-size:.85rem;color:#4ade80;display:none" data-i18n="formSuccess">✓ Message sent — we'll be in touch shortly.</div>
   </form>
 </section>
 

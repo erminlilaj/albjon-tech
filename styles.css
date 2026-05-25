@@ -104,6 +104,7 @@ nav.is-scrolled {
   font-size: 1.35rem;
   letter-spacing: 0.04em;
   color: var(--white);
+  text-decoration: none;
   white-space: nowrap;
 }
 

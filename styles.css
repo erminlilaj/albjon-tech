@@ -617,6 +617,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 5.3rem;
 }
 
 .about-card.tag {
@@ -629,8 +630,8 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 }
 
 .about-card.dot {
-  top: -20px;
-  left: -20px;
+  top: -28px;
+  left: 1.8rem;
   width: 110px;
   height: 110px;
   background: rgba(79,195,247,0.08);
@@ -652,6 +653,69 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   color:var(--cyan);
   letter-spacing:.12em;
   text-transform:uppercase;
+}
+
+.platforms-label {
+  color: var(--grey);
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: .7rem;
+}
+
+.platform-logos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .65rem;
+  margin-bottom: 1.2rem;
+}
+
+.platform-logo {
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  border: 1px solid rgba(79,195,247,0.18);
+  background: rgba(5,10,23,0.36);
+  color: var(--white);
+  padding: .65rem .7rem;
+  font-size: .78rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.microsoft-mark {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.microsoft-mark i:nth-child(1) { background: #f25022; }
+.microsoft-mark i:nth-child(2) { background: #7fba00; }
+.microsoft-mark i:nth-child(3) { background: #00a4ef; }
+.microsoft-mark i:nth-child(4) { background: #ffb900; }
+
+.azure-mark {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  background: linear-gradient(135deg, #59c4ff 10%, #0078d4 58%, #005a9e 100%);
+  clip-path: polygon(48% 4%, 96% 94%, 57% 82%, 38% 48%, 20% 94%, 4% 94%);
+}
+
+.m365-mark {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  border-radius: 34% 66% 44% 56%;
+  border: 2px solid #f25022;
+  border-left-color: #00a4ef;
+  border-bottom-color: #7fba00;
+  border-right-color: #ffb900;
+  transform: rotate(-12deg);
 }
 
 .hex-grid {
@@ -813,6 +877,16 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   color: var(--white);
   margin-top: .2rem;
   font-size: .95rem;
+}
+
+.contact-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.contact-link:hover {
+  color: var(--cyan);
 }
 
 .contact-form {
@@ -997,7 +1071,9 @@ footer {
     gap: 3rem;
   }
 
-  .about-visual { height: 360px; }
+  .about-visual { height: 430px; }
+  .about-card.main { padding-top: 5rem; }
+  .about-card.dot { left: 1rem; }
   .about-card.tag { right: 0; }
 
   footer {
@@ -1017,4 +1093,7 @@ footer {
   .stats { grid-template-columns: 1fr; }
   .stat { border-right: none; }
   .service-card { min-height: auto; }
+  .about-visual { height: 520px; }
+  .platform-logos { grid-template-columns: 1fr; }
+  .platform-logo { min-height: 2.75rem; font-size: .74rem; }
 }

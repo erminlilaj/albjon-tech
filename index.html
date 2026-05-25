@@ -91,30 +91,41 @@
   }
   .nav-cta:hover { background: var(--accent); color: var(--white); }
   .language-switch {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: .1rem;
-    padding: .15rem;
     border: 1px solid var(--border);
     background: rgba(13,21,48,0.7);
   }
-  .lang-btn {
-    min-width: 2.2rem;
+  .lang-select {
+    appearance: none;
+    min-width: 8.2rem;
     border: 0;
     background: transparent;
-    color: var(--grey);
-    padding: .38rem .45rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .72rem;
-    font-weight: 500;
-    letter-spacing: .08em;
-    cursor: pointer;
-    transition: background .2s, color .2s;
-  }
-  .lang-btn:hover,
-  .lang-btn.is-active {
-    background: var(--accent);
     color: var(--white);
+    padding: .46rem 1.8rem .46rem .65rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .78rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+  }
+  .lang-select option {
+    background: var(--navy2);
+    color: var(--white);
+  }
+  .language-switch::after {
+    content: '▾';
+    position: absolute;
+    right: .65rem;
+    top: 50%;
+    transform: translateY(-52%);
+    color: var(--cyan);
+    font-size: .72rem;
+    pointer-events: none;
+  }
+  .language-switch:focus-within {
+    border-color: var(--accent);
   }
 
   /* ── HERO ── */
@@ -406,7 +417,7 @@
     .nav-links { display: none; }
     .nav-actions { gap: .5rem; }
     .nav-cta { padding: .45rem .8rem; font-size: .68rem; }
-    .lang-btn { min-width: 1.9rem; padding: .35rem .35rem; font-size: .68rem; }
+    .lang-select { min-width: 5.4rem; max-width: 5.4rem; padding: .42rem 1.4rem .42rem .45rem; font-size: .72rem; }
     .section, .about-wrap, .contact-wrap { padding: 4rem 1.5rem; }
     .services-grid { grid-template-columns: 1fr; }
     .stats { grid-template-columns: repeat(2,1fr); }
@@ -437,9 +448,11 @@
   </ul>
   <div class="nav-actions">
     <div class="language-switch" aria-label="Language selection">
-      <button class="lang-btn is-active" type="button" data-lang="en" aria-pressed="true" title="English">EN</button>
-      <button class="lang-btn" type="button" data-lang="fr" aria-pressed="false" title="Français">FR</button>
-      <button class="lang-btn" type="button" data-lang="nl" aria-pressed="false" title="Vlaams">VL</button>
+      <select class="lang-select" id="languageSelect">
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="nl">🇧🇪 Vlaams</option>
+      </select>
     </div>
     <a href="#contact" class="nav-cta" data-i18n="navCta">Get in Touch</a>
   </div>
@@ -650,6 +663,7 @@ let activeLang = getStoredLang() || 'en';
 let skillsAnimated = false;
 const sg = document.getElementById('skillsGrid');
 const nav = document.querySelector('nav');
+const languageSelect = document.getElementById('languageSelect');
 
 function getStoredLang() {
   try {
@@ -734,19 +748,13 @@ function setLanguage(lang) {
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     el.placeholder = translate(el.dataset.i18nPlaceholder);
   });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    const selected = btn.dataset.lang === activeLang;
-    btn.classList.toggle('is-active', selected);
-    btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
-  });
+  if (languageSelect) languageSelect.value = activeLang;
 
   renderSkills();
   storeLang(activeLang);
 }
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-});
+languageSelect?.addEventListener('change', () => setLanguage(languageSelect.value));
 
 // Animate bars on scroll
 const observer = new IntersectionObserver(entries => {

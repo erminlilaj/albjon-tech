@@ -1,8 +1,8 @@
 const translations = window.ALBJON_TRANSLATIONS || {};
 const languageMeta = {
-  en: { flag: '🇬🇧', label: 'English' },
-  fr: { flag: '🇫🇷', label: 'Français' },
-  nl: { flag: '🇧🇪', label: 'Vlaams' },
+  en: { flag: 'EN', label: 'English' },
+  fr: { flag: 'FR', label: 'Francais' },
+  nl: { flag: 'NL', label: 'Vlaams' },
 };
 
 let activeLang = getStoredLang() || 'en';
@@ -23,7 +23,7 @@ const levels = ['on','on','on','mid','mid','off','off','mid','on','on','mid','of
 levels.forEach(level => {
   const cell = document.createElement('div');
   cell.className = `hex ${level}`;
-  grid.appendChild(cell);
+  grid?.appendChild(cell);
 });
 
 function getStoredLang() {
@@ -52,8 +52,9 @@ function translate(key) {
 
 function renderSkills() {
   const skills = translate('skills');
-  sg.innerHTML = '';
+  if (!sg) return;
 
+  sg.innerHTML = '';
   if (!Array.isArray(skills)) return;
 
   skills.forEach(skill => {
@@ -140,7 +141,7 @@ document.addEventListener('keydown', event => {
 });
 
 menuToggle?.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('nav-open');
+  const isOpen = nav?.classList.toggle('nav-open');
   menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 });
 
@@ -163,7 +164,8 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.2 });
 
-observer.observe(document.getElementById('expertise'));
+const expertise = document.getElementById('expertise');
+if (expertise) observer.observe(expertise);
 
 function formspreeErrorMessage(data) {
   if (Array.isArray(data?.errors) && data.errors.length) {
@@ -218,7 +220,7 @@ async function handleSubmit(e) {
 window.handleSubmit = handleSubmit;
 
 function updateNavState() {
-  nav.classList.toggle('is-scrolled', window.scrollY > 60);
+  nav?.classList.toggle('is-scrolled', window.scrollY > 60);
 }
 
 window.addEventListener('scroll', updateNavState);

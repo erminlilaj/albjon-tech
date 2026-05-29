@@ -631,7 +631,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 .about-card.tag {
   bottom: -30px;
   right: -30px;
-  width: 220px;
+  width: min(300px, calc(100% - 1rem));
   background: linear-gradient(135deg, var(--accent), #1557a0);
   border: none;
   box-shadow: 0 18px 45px rgba(0,0,0,0.28);
@@ -763,7 +763,8 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 .about-tag-title {
   font-family:'Syne',sans-serif;
   font-weight:700;
-  font-size:.95rem;
+  font-size:.9rem;
+  line-height:1.3;
   color:#fff;
 }
 
@@ -818,22 +819,25 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1rem;
-  margin-top: 3rem;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 2.4rem;
+  border-top: 1px solid var(--border);
 }
 
 .skill-chip {
-  min-height: 118px;
-  border: 1px solid var(--border);
-  background: rgba(13,21,48,0.78);
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  min-height: 0;
+  border: 0;
+  border-bottom: 1px solid rgba(45,125,210,0.18);
+  background: transparent;
+  padding: 1.05rem 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 1.25rem;
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity .35s, border-color .2s, transform .2s, background .2s;
+  transition: opacity .35s, border-color .2s, transform .2s;
 }
 
 .skill-chip.is-visible {
@@ -842,9 +846,9 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 }
 
 .skill-chip:hover {
-  transform: translateY(-2px);
+  transform: translateX(4px);
   border-color: var(--border-strong);
-  background: rgba(16,26,54,0.94);
+  background: transparent;
 }
 
 .skill-name {
@@ -855,14 +859,15 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 
 .skill-domain {
   width: fit-content;
-  margin-top: 1.1rem;
-  color: var(--cyan);
-  border: 1px solid rgba(79,195,247,0.26);
-  background: rgba(79,195,247,0.08);
-  padding: .32rem .55rem;
+  margin-top: 0;
+  color: var(--grey);
+  border: 0;
+  background: transparent;
+  padding: 0;
   font-size: .72rem;
   letter-spacing: .08em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .contact-wrap {
@@ -880,7 +885,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.15rem;
 }
 
 .contact-item {
@@ -1131,4 +1136,6 @@ footer {
   .about-visual { height: 520px; }
   .platform-logos { grid-template-columns: 1fr; }
   .platform-logo { min-height: 2.75rem; font-size: .74rem; }
+  .skill-chip { grid-template-columns: 1fr; row-gap: .35rem; }
+  .skill-domain { white-space: normal; }
 }

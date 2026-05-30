@@ -891,9 +891,21 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 }
 
 .experience-list {
+  position: relative;
   display: grid;
   gap: 0;
-  border-top: 1px solid var(--border);
+  padding-left: 3rem;
+  counter-reset: exp;
+}
+
+.experience-list::before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  top: .5rem;
+  bottom: .5rem;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--border-strong) 8%, rgba(45,125,210,0.25) 82%, transparent);
 }
 
 .experience-item {
@@ -901,34 +913,60 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   display: grid;
   grid-template-columns: 8rem 1fr;
   gap: 1.5rem;
-  padding: 1.35rem 0;
+  padding: 1.55rem 0;
+  counter-increment: exp;
   border-bottom: 1px solid rgba(45,125,210,0.16);
-  transition: transform .2s, border-color .2s;
+  transition: transform .2s, border-color .2s, background .2s;
 }
 
 .experience-item::before {
-  content: '';
+  content: counter(exp, decimal-leading-zero);
   position: absolute;
-  left: -1.2rem;
-  top: 1.55rem;
-  width: .42rem;
-  height: .42rem;
-  border: 1px solid var(--cyan);
-  background: var(--navy);
-  box-shadow: 0 0 18px rgba(79,195,247,0.28);
+  left: -2.3rem;
+  top: 1.4rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: rgba(8,13,28,0.95);
+  color: var(--cyan);
+  font-family: 'Syne', sans-serif;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  box-shadow: 0 0 18px rgba(79,195,247,0.22);
+  transition: background .2s, color .2s, border-color .2s, box-shadow .2s;
+  z-index: 1;
 }
 
 .experience-item:hover {
   transform: translateX(4px);
   border-color: var(--border-strong);
+  background: rgba(45,125,210,0.05);
+}
+
+.experience-item:hover::before {
+  border-color: var(--cyan);
+  background: linear-gradient(135deg, var(--accent), #1557a0);
+  color: #fff;
+  box-shadow: 0 0 26px rgba(79,195,247,0.5);
 }
 
 .experience-meta {
+  align-self: start;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
   color: var(--cyan);
-  font-size: .72rem;
-  letter-spacing: .14em;
+  border: 1px solid var(--border);
+  background: rgba(79,195,247,0.06);
+  border-radius: 999px;
+  padding: .3rem .65rem;
+  font-size: .66rem;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  padding-top: .18rem;
 }
 
 .experience-item h3 {

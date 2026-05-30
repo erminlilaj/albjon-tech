@@ -50,6 +50,29 @@ function translate(key) {
   return currentCopy()[key] ?? translations.en?.[key] ?? '';
 }
 
+function credentialIssuerClass(issuer = '') {
+  return issuer.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'generic';
+}
+
+function createCredentialMark(issuer) {
+  const normalized = credentialIssuerClass(issuer);
+  const mark = document.createElement('span');
+  mark.className = `credential-mark ${normalized}-mark`;
+  mark.setAttribute('aria-hidden', 'true');
+
+  if (normalized === 'microsoft') {
+    for (let i = 0; i < 4; i += 1) mark.appendChild(document.createElement('i'));
+  } else if (normalized === 'cisco') {
+    for (let i = 0; i < 6; i += 1) mark.appendChild(document.createElement('i'));
+  } else if (normalized === 'fortinet') {
+    for (let i = 0; i < 4; i += 1) mark.appendChild(document.createElement('i'));
+  } else {
+    mark.textContent = issuer.slice(0, 1).toUpperCase();
+  }
+
+  return mark;
+}
+
 function renderSkills() {
   const skills = translate('skills');
   if (!sg) return;
@@ -61,15 +84,46 @@ function renderSkills() {
     const chip = document.createElement('div');
     chip.className = skillsVisible ? 'skill-chip is-visible' : 'skill-chip';
 
+    const issuer = skill.issuer || translate('skillDomainSpecialist');
+
+    const brand = document.createElement('div');
+    brand.className = `credential-brand brand-${credentialIssuerClass(issuer)}`;
+    const brandLabel = document.createElement('span');
+    brandLabel.className = 'credential-brand-label';
+    brandLabel.textContent = issuer;
+    brand.append(createCredentialMark(issuer), brandLabel);
+
+    const content = document.createElement('div');
+    content.className = 'credential-content';
+
     const name = document.createElement('div');
     name.className = 'skill-name';
     name.textContent = skill.name;
+    content.appendChild(name);
 
-    const domain = document.createElement('div');
-    domain.className = 'skill-domain';
-    domain.textContent = skill.domain || translate('skillDomainSpecialist');
+    if (skill.note) {
+      const note = document.createElement('div');
+      note.className = 'credential-note';
+      note.textContent = skill.note;
+      content.appendChild(note);
+    }
 
-    chip.append(name, domain);
+    const meta = document.createElement('div');
+    meta.className = 'credential-meta';
+
+    if (skill.year) {
+      const year = document.createElement('span');
+      year.textContent = skill.year;
+      meta.appendChild(year);
+    }
+
+    if (skill.id) {
+      const id = document.createElement('span');
+      id.textContent = skill.id;
+      meta.appendChild(id);
+    }
+
+    chip.append(brand, content, meta);
     sg.appendChild(chip);
   });
 }

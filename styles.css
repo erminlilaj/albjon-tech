@@ -1006,25 +1006,24 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
   margin-top: 2.4rem;
-  border-top: 1px solid var(--border);
+  border: 1px solid var(--border);
+  background: var(--border);
 }
 
 .skill-chip {
-  min-height: 0;
+  min-height: 190px;
   border: 0;
-  border-bottom: 1px solid rgba(45,125,210,0.18);
-  background: transparent;
-  padding: 1.05rem 0;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  column-gap: 1.25rem;
+  background: linear-gradient(180deg, rgba(16,26,54,0.98), rgba(8,13,28,0.96));
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity .35s, border-color .2s, transform .2s;
+  transition: opacity .35s, border-color .2s, transform .2s, background .2s;
 }
 
 .skill-chip.is-visible {
@@ -1033,17 +1032,106 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 }
 
 .skill-chip:hover {
-  transform: translateX(4px);
+  transform: translateY(-2px);
   border-color: var(--border-strong);
-  background: transparent;
+  background: linear-gradient(180deg, rgba(20,32,66,0.98), rgba(10,16,34,0.98));
+}
+
+.credential-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  min-width: 0;
+  color: var(--white);
+  font-weight: 600;
+  font-size: .82rem;
+  margin-bottom: 1.35rem;
+}
+
+.credential-brand-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.credential-mark {
+  width: 1.45rem;
+  height: 1.45rem;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+}
+
+.credential-mark.microsoft-mark {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+.credential-mark.microsoft-mark i,
+.credential-mark.fortinet-mark i {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.credential-mark.microsoft-mark i:nth-child(1) { background: #f25022; }
+.credential-mark.microsoft-mark i:nth-child(2) { background: #7fba00; }
+.credential-mark.microsoft-mark i:nth-child(3) { background: #00a4ef; }
+.credential-mark.microsoft-mark i:nth-child(4) { background: #ffb900; }
+
+.credential-mark.cisco-mark {
+  height: 1.1rem;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.credential-mark.cisco-mark i {
+  width: 2px;
+  border-radius: 999px;
+  background: #1ba0d7;
+}
+
+.credential-mark.cisco-mark i:nth-child(1),
+.credential-mark.cisco-mark i:nth-child(6) { height: .45rem; }
+.credential-mark.cisco-mark i:nth-child(2),
+.credential-mark.cisco-mark i:nth-child(5) { height: .78rem; }
+.credential-mark.cisco-mark i:nth-child(3),
+.credential-mark.cisco-mark i:nth-child(4) { height: 1.1rem; }
+
+.credential-mark.fortinet-mark {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  padding: 3px;
+  background: #da291c;
+  border: 1px solid rgba(218,41,28,0.65);
+}
+
+.credential-mark.fortinet-mark i {
+  background: var(--navy);
+}
+
+.credential-content {
+  min-width: 0;
+  width: 100%;
 }
 
 .skill-name {
   color: var(--white);
   font-weight: 500;
   line-height: 1.35;
+  font-size: .98rem;
 }
 
+.credential-note {
+  color: var(--grey);
+  font-size: .78rem;
+  margin-top: .28rem;
+  line-height: 1.5;
+}
+
+.credential-meta,
 .skill-domain {
   width: fit-content;
   margin-top: 0;
@@ -1055,6 +1143,22 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   letter-spacing: .08em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.credential-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 1.2rem;
+}
+
+.credential-meta span {
+  padding: .3rem .5rem;
+  border: 1px solid rgba(79,195,247,0.16);
+  background: rgba(8,13,28,0.36);
 }
 
 .contact-wrap {
@@ -1308,6 +1412,16 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .skill-chip {
+    row-gap: .75rem;
+    align-items: start;
+  }
+
+  .credential-meta {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
   .stats { grid-template-columns: repeat(2,1fr); }
   .stat:nth-child(2) { border-right: none; }
 
@@ -1348,7 +1462,7 @@ footer {
   .about-visual { height: 520px; }
   .platform-logos { grid-template-columns: 1fr; }
   .platform-logo { min-height: 2.75rem; font-size: .74rem; }
-  .skill-chip { grid-template-columns: 1fr; row-gap: .35rem; }
+  .skill-chip { min-height: 170px; padding: 1.1rem; }
   .skill-domain { white-space: normal; }
   .experience-item { grid-template-columns: 1fr; gap: .5rem; }
 }

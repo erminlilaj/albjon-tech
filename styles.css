@@ -25,7 +25,7 @@ body {
     linear-gradient(180deg, #090e1c 0%, var(--navy) 34%, #0d1223 100%);
   color: var(--white);
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   overflow-x: hidden;
   cursor: default;
 }
@@ -36,8 +36,8 @@ body::before {
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 999;
-  opacity: .34;
+  z-index: 0;
+  opacity: .18;
 }
 
 .glow-orb {
@@ -282,7 +282,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   background:
     radial-gradient(circle at 50% 50%, rgba(45,125,210,0.07), transparent 60%),
     conic-gradient(from 180deg, rgba(79,195,247,0.1), rgba(64,217,163,0.06), rgba(45,125,210,0.08), rgba(79,195,247,0.1));
-  opacity: .42;
+  opacity: .2;
   transform: translate(-50%, -50%) rotate(45deg);
   z-index: -1;
 }
@@ -321,13 +321,13 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  border: 1px solid var(--border);
-  background: rgba(45,125,210,0.08);
+  border: 1px solid rgba(64,217,163,0.28);
+  background: rgba(64,217,163,0.07);
   padding: .35rem 1rem;
   font-size: .75rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--mint);
   margin-bottom: 2.5rem;
   animation: fadeUp .8s ease both;
 }
@@ -352,6 +352,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   font-weight: 800;
   font-size: clamp(2.75rem, 4.1vw, 4rem);
   line-height: .95;
+  letter-spacing: -0.02em;
   max-width: 780px;
   margin-bottom: 1.5rem;
   animation: fadeUp .9s .1s ease both;

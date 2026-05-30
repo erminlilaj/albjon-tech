@@ -259,11 +259,11 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
   z-index: 1;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
   align-items: center;
   justify-content: center;
-  gap: 3.25rem;
-  width: min(1200px, calc(100% - 8rem));
+  gap: 3rem;
+  width: min(1400px, calc(100% - 4rem));
   margin: 0 auto;
   justify-content: center;
   text-align: left;
@@ -309,7 +309,7 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 
 .hero-copy {
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 @keyframes gridShift {
@@ -350,9 +350,9 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 .hero-title {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: clamp(2.85rem, 5vw, 4.75rem);
+  font-size: clamp(2.75rem, 4.1vw, 4rem);
   line-height: .95;
-  max-width: 720px;
+  max-width: 780px;
   margin-bottom: 1.5rem;
   animation: fadeUp .9s .1s ease both;
 }
@@ -486,36 +486,6 @@ nav.nav-open .menu-toggle span:nth-child(3) { transform: translateY(-5px) rotate
 .btn-secondary:hover {
   border-color: var(--accent);
   color: var(--white);
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .4rem;
-  color: var(--grey);
-  font-size: .7rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  animation: fadeUp 1.2s .6s ease both;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(var(--accent), transparent);
-  animation: scrollDrop 2s ease-in-out infinite;
-}
-
-@keyframes scrollDrop {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
 @keyframes fadeUp {
@@ -1202,7 +1172,7 @@ footer {
 .text-cyan { color: var(--cyan); }
 .mt-1 { margin-top: 1rem; }
 
-@media (max-width: 1280px) {
+@media (max-width: 1600px) {
   nav { padding-inline: 2rem; }
   nav.is-scrolled { padding-inline: 2rem; }
   .nav-links { gap: 1.4rem; }
